@@ -1,2 +1,2 @@
 # able-token
-Solidity for token sale and token mint.
+Solidity code for ABLE token sale.
