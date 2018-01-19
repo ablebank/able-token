@@ -20,8 +20,7 @@ contract MainSale is Ownable, Authorizable {
   ExchangeRate public exchangeRate;
   HardCap public hardCap;
   string public salePeriod = "";
-  uint public mintedToken = 0;
-
+  uint public ethDeposits = 0;
   uint public altDeposits = 0;
   uint public start = 1515942000; //new Date("Jun 24 2017 11:00:00 GMT").getTime() / 1000
 
@@ -37,8 +36,7 @@ contract MainSale is Ownable, Authorizable {
    * @dev modifier to allow token creation only when the hardcap has not been reached
    */
   modifier isUnderHardCap() {
-    require(multisigVault.balance + altDeposits <= hardCap.getHardCap());
-    require(mintedToken <= hardCap.getCap(salePeriod).mul(exchangeRate.getRate(salePeriod)));
+    require(ethDeposits + altDeposits <= hardCap.getCap(salePeriod));
     _;
   }
 
@@ -50,7 +48,7 @@ contract MainSale is Ownable, Authorizable {
     uint rate;
     rate = exchangeRate.getRate(salePeriod);
     uint tokens = rate.mul(msg.value);
-    mintedToken = mintedToken.add(tokens);
+    ethDeposits = ethDeposits.add(msg.value);
     token.mint(recipient, tokens);
     require(multisigVault.send(msg.value));
     TokenSold(recipient, msg.value, tokens, rate);
@@ -116,7 +114,7 @@ contract MainSale is Ownable, Authorizable {
    */
   function setSalePeriod(string _salePeriod) public onlyOwner {
     salePeriod = _salePeriod;
-    mintedToken = 0;
+    ethDeposits = 0;
   }
 
   /**
