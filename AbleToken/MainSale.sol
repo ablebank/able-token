@@ -37,7 +37,7 @@ contract MainSale is Ownable, Authorizable {
    * @dev modifier to allow token creation only when the hardcap has not been reached
    */
   modifier isUnderHardCap() {
-    require(multisigVault.balance + altDeposits <= hardCap.getTotalHardCap());
+    require(multisigVault.balance + altDeposits <= hardCap.getHardCap());
     require(mintedToken <= hardCap.getCap(salePeriod).mul(exchangeRate.getRate(salePeriod)));
     _;
   }

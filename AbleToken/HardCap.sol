@@ -3,7 +3,7 @@
  * @dev Allows updating and retrieveing of Conversion HardCap for ABLE tokens
  *
  * ABI
- * [{"constant": true,"inputs": [],"name": "getTotalHardCap","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_totalCap","type": "uint256"}],"name": "updateTotalCap","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [{"name": "_symbol","type": "string"}],"name": "getCap","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "owner","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_symbol","type": "string"},{"name": "_cap","type": "uint256"}],"name": "updateCap","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [{"name": "data","type": "uint256[]"}],"name": "updateCaps","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "getHardCap","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "bytes32"}],"name": "caps","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "newOwner","type": "address"}],"name": "transferOwnership","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"anonymous": false,"inputs": [{"indexed": false,"name": "timestamp","type": "uint256"},{"indexed": false,"name": "symbol","type": "bytes32"},{"indexed": false,"name": "rate","type": "uint256"}],"name": "CapUpdated","type": "event"}]
+ * [{"constant": true,"inputs": [{"name": "_symbol","type": "string"}],"name": "getCap","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "owner","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_symbol","type": "string"},{"name": "_cap","type": "uint256"}],"name": "updateCap","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [{"name": "data","type": "uint256[]"}],"name": "updateCaps","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "getHardCap","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "","type": "bytes32"}],"name": "caps","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "newOwner","type": "address"}],"name": "transferOwnership","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"anonymous": false,"inputs": [{"indexed": false,"name": "timestamp","type": "uint256"},{"indexed": false,"name": "symbol","type": "bytes32"},{"indexed": false,"name": "rate","type": "uint256"}],"name": "CapUpdated","type": "event"}]
  */
 contract HardCap is Ownable {
   using SafeMath for uint;
@@ -11,7 +11,6 @@ contract HardCap is Ownable {
   
   mapping(bytes32 => uint) public caps;
   uint hardcap = 0;
-  uint totalHardcap = 0;
 
   /**
    * @dev Allows the current owner to update a single cap.
@@ -40,14 +39,6 @@ contract HardCap is Ownable {
       i++;
     }
   }
-  
-  /**
-   * @dev Allows the current owner to update a total cap.
-   * @param _totalCap the cap for the symbol. 
-   */
-  function updateTotalCap(uint _totalCap) public onlyOwner {
-    totalHardcap = totalHardcap.add(_totalCap.mul(1 ether)) ;
-  }
 
   /**
    * @dev Allows the anyone to read the current cap.
@@ -62,13 +53,6 @@ contract HardCap is Ownable {
    */
   function getHardCap() public constant returns(uint) {
     return hardcap;
-  }
-  
-  /**
-   * @dev Allows the anyone to read the current total hardcap.
-   */
-  function getTotalHardCap() public constant returns(uint) {
-    return totalHardcap;
   }
 
 }
