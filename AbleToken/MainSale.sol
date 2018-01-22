@@ -22,7 +22,7 @@ contract MainSale is Ownable, Authorizable {
   string public salePeriod = "";
   uint public ethDeposits = 0;
   uint public altDeposits = 0;
-  uint public start = 1515942000; //new Date("Jun 24 2017 11:00:00 GMT").getTime() / 1000
+  uint public start = 1519614000; // Mon, 26 Feb 2018 12:00:00 GMT+09:00
 
   /**
    * @dev modifier to allow token creation only when the sale IS ON
