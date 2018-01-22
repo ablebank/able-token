@@ -18,9 +18,9 @@ contract HardCap is Ownable {
    * @param _cap the cap for the symbol. 
    */
   function updateCap(string _symbol, uint _cap) public onlyOwner {
-    caps[sha3(_symbol)] = _cap.mul(1 ether);
-    hardcap = hardcap.add(_cap.mul(1 ether)) ;
-    CapUpdated(now, sha3(_symbol), _cap.mul(1 ether));
+    caps[sha3(_symbol)] = _cap;
+    hardcap = hardcap.add(_cap) ;
+    CapUpdated(now, sha3(_symbol), _cap);
   }
 
   /**
@@ -33,9 +33,9 @@ contract HardCap is Ownable {
     while (i < data.length / 2) {
       bytes32 symbol = bytes32(data[i * 2]);
       uint cap = data[i * 2 + 1];
-      caps[symbol] = cap.mul(1 ether);
-      hardcap = hardcap.add(cap.mul(1 ether));
-      CapUpdated(now, symbol, cap.mul(1 ether));
+      caps[symbol] = cap;
+      hardcap = hardcap.add(cap);
+      CapUpdated(now, symbol, cap);
       i++;
     }
   }
