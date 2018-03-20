@@ -214,9 +214,9 @@ contract HardCap is Ownable {
    * @param _cap the cap for the symbol. 
    */
   function updateCap(string _symbol, uint _cap) public onlyOwner {
-    caps[sha3(_symbol)] = _cap.mul(1 ether);
-    hardcap = hardcap.add(_cap.mul(1 ether)) ;
-    CapUpdated(now, sha3(_symbol), _cap.mul(1 ether));
+    caps[sha3(_symbol)] = _cap;
+    hardcap = hardcap.add(_cap) ;
+    CapUpdated(now, sha3(_symbol), _cap);
   }
 
   /**
@@ -229,9 +229,9 @@ contract HardCap is Ownable {
     while (i < data.length / 2) {
       bytes32 symbol = bytes32(data[i * 2]);
       uint cap = data[i * 2 + 1];
-      caps[symbol] = cap.mul(1 ether);
-      hardcap = hardcap.add(cap.mul(1 ether));
-      CapUpdated(now, symbol, cap.mul(1 ether));
+      caps[symbol] = cap;
+      hardcap = hardcap.add(cap);
+      CapUpdated(now, symbol, cap);
       i++;
     }
   }
@@ -431,7 +431,7 @@ contract MintableToken is StandardToken, Ownable {
  * @dev The main ABLE token contract
  * 
  * ABI 
- * [{"constant": true,"inputs": [],"name": "mintingFinished","outputs": [{"name": "","type": "bool"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "name","outputs": [{"name": "","type": "string"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_spender","type": "address"},{"name": "_value","type": "uint256"}],"name": "approve","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "totalSupply","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_from","type": "address"},{"name": "_to","type": "address"},{"name": "_value","type": "uint256"}],"name": "transferFrom","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [],"name": "startTrading","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "decimals","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_to","type": "address"},{"name": "_amount","type": "uint256"}],"name": "mint","outputs": [{"name": "","type": "bool"}],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "tradingStarted","outputs": [{"name": "","type": "bool"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "_owner","type": "address"}],"name": "balanceOf","outputs": [{"name": "balance","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "finishMinting","outputs": [{"name": "","type": "bool"}],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "owner","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "symbol","outputs": [{"name": "","type": "string"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_to","type": "address"},{"name": "_value","type": "uint256"}],"name": "transfer","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [{"name": "_owner","type": "address"},{"name": "_spender","type": "address"}],"name": "allowance","outputs": [{"name": "remaining","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "newOwner","type": "address"}],"name": "transferOwnership","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"anonymous": false,"inputs": [{"indexed": true,"name": "to","type": "address"},{"indexed": false,"name": "value","type": "uint256"}],"name": "Mint","type": "event"},{"anonymous": false,"inputs": [],"name": "MintFinished","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "owner","type": "address"},{"indexed": true,"name": "spender","type": "address"},{"indexed": false,"name": "value","type": "uint256"}],"name": "Approval","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "from","type": "address"},{"indexed": true,"name": "to","type": "address"},{"indexed": false,"name": "value","type": "uint256"}],"name": "Transfer","type": "event"}]
+ * [{"constant": true,"inputs": [],"name": "mintingFinished","outputs": [{"name": "","type": "bool"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "name","outputs": [{"name": "","type": "string"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_spender","type": "address"},{"name": "_value","type": "uint256"}],"name": "approve","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "totalSupply","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_from","type": "address"},{"name": "_to","type": "address"},{"name": "_value","type": "uint256"}],"name": "transferFrom","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [],"name": "startTrading","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "decimals","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_to","type": "address"},{"name": "_amount","type": "uint256"}],"name": "mint","outputs": [{"name": "","type": "bool"}],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "tradingStarted","outputs": [{"name": "","type": "bool"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [{"name": "_owner","type": "address"}],"name": "balanceOf","outputs": [{"name": "balance","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "stopTrading","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [],"name": "finishMinting","outputs": [{"name": "","type": "bool"}],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "owner","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "symbol","outputs": [{"name": "","type": "string"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_to","type": "address"},{"name": "_value","type": "uint256"}],"name": "transfer","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [{"name": "_owner","type": "address"},{"name": "_spender","type": "address"}],"name": "allowance","outputs": [{"name": "remaining","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "newOwner","type": "address"}],"name": "transferOwnership","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"anonymous": false,"inputs": [{"indexed": true,"name": "to","type": "address"},{"indexed": false,"name": "value","type": "uint256"}],"name": "Mint","type": "event"},{"anonymous": false,"inputs": [],"name": "MintFinished","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "owner","type": "address"},{"indexed": true,"name": "spender","type": "address"},{"indexed": false,"name": "value","type": "uint256"}],"name": "Approval","type": "event"},{"anonymous": false,"inputs": [{"indexed": true,"name": "from","type": "address"},{"indexed": true,"name": "to","type": "address"},{"indexed": false,"name": "value","type": "uint256"}],"name": "Transfer","type": "event"}]
  */
 contract AbleToken is MintableToken {
 
@@ -450,10 +450,17 @@ contract AbleToken is MintableToken {
   }
 
   /**
-   * @dev Allows the owner to enable the trading. This can not be undone
+   * @dev Allows the owner to enable the trading.
    */
   function startTrading() onlyOwner {
     tradingStarted = true;
+  }
+  
+  /**
+   * @dev Allows the owner to disable the trading.
+   */
+  function stopTrading() onlyOwner {
+    tradingStarted = false;
   }
 
   /**
@@ -483,7 +490,7 @@ contract AbleToken is MintableToken {
  * @dev The main ABLE token sale contract
  * 
  * ABI
- * [{"constant": false,"inputs": [{"name": "_multisigVault","type": "address"}],"name": "setMultisigVault","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [{"name": "authorizerIndex","type": "uint256"}],"name": "getAuthorizer","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "exchangeRate","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "altDeposits","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_salePeriod","type": "string"}],"name": "setSalePeriod","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [{"name": "recipient","type": "address"},{"name": "tokens","type": "uint256"}],"name": "authorizedCreateTokens","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [],"name": "finishMinting","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "mintedToken","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "owner","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_exchangeRate","type": "address"}],"name": "setExchangeRate","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "salePeriod","outputs": [{"name": "","type": "string"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_token","type": "address"}],"name": "retrieveTokens","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [{"name": "totalAltDeposits","type": "uint256"}],"name": "setAltDeposit","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "start","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "recipient","type": "address"}],"name": "createTokens","outputs": [],"payable": true,"stateMutability": "payable","type": "function"},{"constant": false,"inputs": [{"name": "_addr","type": "address"}],"name": "addAuthorized","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "multisigVault","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "newOwner","type": "address"}],"name": "transferOwnership","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [{"name": "_start","type": "uint256"}],"name": "setStart","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "hardCap","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "token","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_hardCap","type": "address"}],"name": "setHardCap","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [{"name": "_addr","type": "address"}],"name": "isAuthorized","outputs": [{"name": "","type": "bool"}],"payable": false,"stateMutability": "view","type": "function"},{"payable": true,"stateMutability": "payable","type": "fallback"},{"anonymous": false,"inputs": [{"indexed": false,"name": "recipient","type": "address"},{"indexed": false,"name": "ether_amount","type": "uint256"},{"indexed": false,"name": "pay_amount","type": "uint256"},{"indexed": false,"name": "exchangerate","type": "uint256"}],"name": "TokenSold","type": "event"},{"anonymous": false,"inputs": [{"indexed": false,"name": "recipient","type": "address"},{"indexed": false,"name": "pay_amount","type": "uint256"}],"name": "AuthorizedCreate","type": "event"},{"anonymous": false,"inputs": [{"indexed": false,"name": "hardcap","type": "uint256[]"}],"name": "hardcapChanged","type": "event"},{"anonymous": false,"inputs": [{"indexed": false,"name": "salePeriod","type": "uint256"}],"name": "salePreiodChanged","type": "event"},{"anonymous": false,"inputs": [],"name": "MainSaleClosed","type": "event"}]
+ * [{"constant": false,"inputs": [{"name": "_multisigVault","type": "address"}],"name": "setMultisigVault","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [],"name": "startTrading","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [{"name": "authorizerIndex","type": "uint256"}],"name": "getAuthorizer","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "exchangeRate","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "altDeposits","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_salePeriod","type": "string"}],"name": "setSalePeriod","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [{"name": "recipient","type": "address"},{"name": "tokens","type": "uint256"}],"name": "authorizedCreateTokens","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "ethDeposits","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [],"name": "stopTrading","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [],"name": "finishMinting","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "owner","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_exchangeRate","type": "address"}],"name": "setExchangeRate","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "salePeriod","outputs": [{"name": "","type": "string"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_token","type": "address"}],"name": "retrieveTokens","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [{"name": "totalAltDeposits","type": "uint256"}],"name": "setAltDeposit","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "start","outputs": [{"name": "","type": "uint256"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "recipient","type": "address"}],"name": "createTokens","outputs": [],"payable": true,"stateMutability": "payable","type": "function"},{"constant": false,"inputs": [{"name": "_addr","type": "address"}],"name": "addAuthorized","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "multisigVault","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "newOwner","type": "address"}],"name": "transferOwnership","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": false,"inputs": [{"name": "_start","type": "uint256"}],"name": "setStart","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [],"name": "hardCap","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": true,"inputs": [],"name": "token","outputs": [{"name": "","type": "address"}],"payable": false,"stateMutability": "view","type": "function"},{"constant": false,"inputs": [{"name": "_hardCap","type": "address"}],"name": "setHardCap","outputs": [],"payable": false,"stateMutability": "nonpayable","type": "function"},{"constant": true,"inputs": [{"name": "_addr","type": "address"}],"name": "isAuthorized","outputs": [{"name": "","type": "bool"}],"payable": false,"stateMutability": "view","type": "function"},{"payable": true,"stateMutability": "payable","type": "fallback"},{"anonymous": false,"inputs": [{"indexed": false,"name": "recipient","type": "address"},{"indexed": false,"name": "ether_amount","type": "uint256"},{"indexed": false,"name": "pay_amount","type": "uint256"},{"indexed": false,"name": "exchangerate","type": "uint256"}],"name": "TokenSold","type": "event"},{"anonymous": false,"inputs": [{"indexed": false,"name": "recipient","type": "address"},{"indexed": false,"name": "pay_amount","type": "uint256"}],"name": "AuthorizedCreate","type": "event"},{"anonymous": false,"inputs": [{"indexed": false,"name": "hardcap","type": "uint256[]"}],"name": "hardcapChanged","type": "event"},{"anonymous": false,"inputs": [{"indexed": false,"name": "salePeriod","type": "uint256"}],"name": "salePreiodChanged","type": "event"},{"anonymous": false,"inputs": [],"name": "MainSaleClosed","type": "event"}]
  */
 contract MainSale is Ownable, Authorizable {
   using SafeMath for uint;
@@ -493,7 +500,8 @@ contract MainSale is Ownable, Authorizable {
   event salePreiodChanged(uint salePeriod);
   event MainSaleClosed();
 
-  AbleToken public token = new AbleToken();
+  //AbleToken public token = new AbleToken();
+  AbleToken public token = 0x3AA6eaa1127063A3700EFdd589eB75fF1b5907b3;
 
   address public multisigVault;
   
@@ -502,7 +510,8 @@ contract MainSale is Ownable, Authorizable {
   string public salePeriod = "";
   uint public ethDeposits = 0;
   uint public altDeposits = 0;
-  uint public start = 1515942000; //new Date("Jun 24 2017 11:00:00 GMT").getTime() / 1000
+  uint public start = 1522119600; // Web 27 March 2018 12:00:00 GMT+09:00
+  uint public personalHarcap = 2500000000000000000;
 
   /**
    * @dev modifier to allow token creation only when the sale IS ON
@@ -525,6 +534,9 @@ contract MainSale is Ownable, Authorizable {
    * @param recipient the recipient to receive tokens. 
    */
   function createTokens(address recipient) public isUnderHardCap saleIsOn payable {
+    if (msg.value > personalHarcap) {
+      revert();
+    }
     uint rate;
     rate = exchangeRate.getRate(salePeriod);
     uint tokens = rate.mul(msg.value);
@@ -607,6 +619,20 @@ contract MainSale is Ownable, Authorizable {
     token.finishMinting();
     token.transferOwnership(owner);
     MainSaleClosed();
+  }
+  
+  /**
+   * @dev Allows the owner to start the trading ABLE tokens. 
+   */
+  function startTrading() public onlyOwner {
+    token.startTrading();
+  }
+  
+  /**
+   * @dev Allows the owner to stop the trading ABLE tokens. 
+   */
+  function stopTrading() public onlyOwner {
+    token.stopTrading();
   }
 
   /**
