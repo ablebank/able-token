@@ -1,3 +1,5 @@
+pragma solidity ^0.4.19;
+
 /**
  * @title Authorizable
  * @dev Allows to authorize access to certain function calls

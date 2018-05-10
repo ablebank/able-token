@@ -511,7 +511,7 @@ contract MainSale is Ownable, Authorizable {
   uint public ethDeposits = 0;
   uint public altDeposits = 0;
   uint public start = 1522119600; // Web 27 March 2018 12:00:00 GMT+09:00
-  uint public personalHarcap = 2500000000000000000;
+  //uint public personalHarcap = 2500000000000000000;
 
   /**
    * @dev modifier to allow token creation only when the sale IS ON
@@ -534,11 +534,13 @@ contract MainSale is Ownable, Authorizable {
    * @param recipient the recipient to receive tokens. 
    */
   function createTokens(address recipient) public isUnderHardCap saleIsOn payable {
-    if (msg.value > personalHarcap) {
-      revert();
-    }
     uint rate;
     rate = exchangeRate.getRate(salePeriod);
+    /*
+    if ((msg.value > personalHarcap) &&(token.balanceOf(recipient) > personalHarcap * rate)) {
+      revert();
+    }
+    */
     uint tokens = rate.mul(msg.value);
     ethDeposits = ethDeposits.add(msg.value);
     token.mint(recipient, tokens);

@@ -1,3 +1,8 @@
+pragma solidity ^0.4.19;
+
+import "./Ownable.sol";
+import "./SafeMath.sol";
+
 /**
  * @title ExchangeRate
  * @dev Allows updating and retrieveing of Conversion Rates for ABLE tokens
